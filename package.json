@@ -1,0 +1,29 @@
+{
+  "name": "vasil.ca",
+  "version": "1.0.0",
+  "description": "Vasil Rimar - Software Engineer from Toronto",
+  "scripts": {
+    "dev": "next",
+    "build": "rimraf build && next build",
+    "start": "next start",
+    "export": "rimraf out && next export",
+    "publish": "node ./scripts/publish.js",
+    "deploy": "npm run build && npm run export && npm run publish"
+  },
+  "author": "Vasil Rimar",
+  "license": "MIT",
+  "devDependencies": {
+    "basic-ftp": "^3.7.1",
+    "cross-env": "^5.2.0",
+    "next": "^9.0.2",
+    "rimraf": "^2.6.3",
+    "@zeit/next-sass": "^1.0.1",
+    "node-sass": "^4.12.0"
+  },
+  "dependencies": {
+    "particles.js": "^2.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-google-recaptcha": "^1.1.0"
+  }
+}

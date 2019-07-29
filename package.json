@@ -13,7 +13,7 @@
   "author": "Vasil Rimar",
   "license": "MIT",
   "devDependencies": {
-    "basic-ftp": "^3.7.1",
+    "basic-ftp": "^3.8.0",
     "cross-env": "^5.2.0",
     "next": "^9.0.2",
     "rimraf": "^2.6.3",
@@ -21,7 +21,6 @@
     "node-sass": "^4.12.0"
   },
   "dependencies": {
-    "particles.js": "^2.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-google-recaptcha": "^1.1.0"

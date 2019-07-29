@@ -1,0 +1,242 @@
+@import './reset';
+@import './mixins';
+@import './variables';
+@import './spacing';
+@import './utility';
+
+html {
+  background: $secondary-color;
+  background: rgb(48,43,78);
+  background: linear-gradient(0deg, rgba(48,43,78,1) 0%, rgba(48,43,78,1) 43%, rgba(48,43,78,1) 100%);
+}
+
+body {
+  line-height: 1.5;
+  font-size: 18px;
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+
+#__next {
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  @include breakpoint(sm) {
+    padding: $spacing-sm $spacing-lg;
+    padding-bottom: $spacing-xxl;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1200px; 
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: $secondary-color;
+  margin-bottom: $spacing-xxl;
+
+  @include breakpoint(sm) {
+    margin-bottom: $spacing-md;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $spacing-sm 0;
+}
+
+.header-menu-toggle {
+  display: none;
+  height: 30px;
+  width: 30px;
+  fill: $text-color;
+  cursor: pointer;
+
+  &:hover {
+    fill: white;
+  }
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
+.header-logo {
+  font-size: 24px;
+  color: white;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary-color;
+
+    .accent-color { color: white }
+  }
+}
+
+.header-nav-close {
+  display: none;
+  position: absolute;
+  top: $spacing-xl;
+  right: $spacing-xl;
+  color: $text-color;
+  font-size: 32px;
+  cursor: pointer;
+  
+  &:before {
+    content: "\2715";
+  }
+
+  &:hover {
+    color: white;
+  }
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
+nav {
+  a {
+    color: $text-color;
+    font-size: 18px;
+    text-decoration: none;
+    margin-right: 40px;
+    cursor: pointer;
+
+    &:last-child { margin: 0;}
+
+    &:hover,
+    &.is-active { 
+      color: white; 
+    }
+  }
+
+  @include breakpoint(md) {
+    position: fixed;
+    top: 0;
+    left:0 ;
+    height: 100%;
+    width: 100%;
+    background: $secondary-color;
+    padding: $spacing-xl;
+    display: none;
+
+    &.is-open {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      margin-right: 0;
+      margin-bottom: $spacing-xl;
+      font-size: 32px;
+    }
+  }
+}
+
+.home-container {
+  flex: 1;
+}
+
+.home-banner {
+  text-align: center;
+  margin-bottom: $spacing-xxl;
+  padding: $spacing-lg;
+
+  h1 { 
+    font-size: 72px;
+    margin-bottom: 0;
+
+    @include breakpoint(sm) {
+      font-size: 56px;
+    }
+
+    @include breakpoint(xs) {
+      font-size: 42px;
+    }
+  }
+
+  p {
+    font-size: 24px;
+    color: white;
+    margin-bottom: $spacing-xs;
+
+    @include breakpoint(sm) {
+      font-size: 20px;
+    }
+
+    @include breakpoint(xs) {
+      font-size: 16px;
+    }
+  }
+
+  @include breakpoint(md) {
+    padding: 0;
+  }
+}
+
+.home-banner-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $spacing-xl;
+
+  .btn  {
+    display: block;
+    margin-right: $spacing-xl;
+  }
+
+  @include breakpoint(sm) {
+    margin-top: $spacing-lg;
+    flex-direction: column;
+
+    .btn { 
+      margin: 0;
+      margin-bottom: $spacing-md;
+    }
+  }
+}
+
+.about {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#particles-js {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.bg {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  position: fixed;
+  transition: all 250ms ease-in;
+  background-repeat: repeat;
+  background-position: center top;
+  background-attachment: fixed;
+  background-size: 120px 120px;
+  background-image: url(/static/img/test.svg);
+}
+
+@import './typography';
+@import './elements';
+@import './projects';
+@import './contact';

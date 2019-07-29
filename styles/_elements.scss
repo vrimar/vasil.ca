@@ -1,0 +1,68 @@
+.btn {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: $spacing-sm $spacing-xl;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: $spacing-xl;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  @include breakpoint(md) {
+    font-size: 14px;
+  }
+}
+
+input, textarea {
+  width: 100%;
+  margin-bottom: $spacing-lg;
+  background: transparent;
+  border: none;
+  border-bottom: solid 1px $secondary-color-light;
+  outline: none;
+  color: white;
+
+  &:focus {
+    border-color: white;
+  }
+}
+
+input {
+  height: 40px;
+  line-height: 40px;
+}
+
+label {
+  display: block;
+  color: $text-color;
+  font-size: 14px;
+  margin-bottom: $spacing-md;
+}
+
+form {
+  
+}
+
+.form-group {
+  &:last-child textarea { margin: 0;}
+}
+
+.social-icons {
+  display: flex;
+}
+
+.social-icon {
+  height: 24px;
+  width: 24px;
+  margin-right: $spacing-md;
+  fill: darken($text-color, 20%);
+
+  &:hover {
+    fill: $text-color;
+  }
+
+  &:last-child {
+    margin: 0;
+  }
+}

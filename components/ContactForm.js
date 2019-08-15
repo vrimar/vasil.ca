@@ -1,5 +1,7 @@
 import * as React from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
+import { Callout } from './Callout';
+import { Button } from './Button';
 
 const AZURE_URL = 'https://vasilca.azurewebsites.net/api/SendEmail';
 const recaptchaKey = '6LcEu68UAAAAAChABp_Lt2hhDFhp00pbBqc-3f7O';
@@ -8,8 +10,9 @@ const recaptchaRef = React.createRef();
 
 export class ContactForm extends React.Component {
   state = {
-    error: undefined,
-    success: undefined,
+    error: false,
+    success: false,
+    isSubmitting: false,
     data: {
       name: '',
       email: '',
@@ -18,10 +21,10 @@ export class ContactForm extends React.Component {
   };
 
   render() {
-    return <form className="contact-form" onChange={this.onChange} onSubmit={this.onSubmit}>
-      {this.state.success && <div>Email successfully sent.</div>}
+    return <form className="contact-form" onChange={this.onInputChange} onSubmit={this.onSubmit}>
+      {this.state.success && <Callout type="positive" onDismiss={this.dismissCallout}>Email successfully sent.</Callout>}
 
-      {this.state.error && <div>An error has occured.</div>}
+      {this.state.error && <Callout type="negative" onDismiss={this.dismissCallout}>An error has occurred.</Callout>}
 
       <div className="form-group">
         <label>Name</label>
@@ -29,7 +32,7 @@ export class ContactForm extends React.Component {
       </div>
       <div className="form-group">
         <label>Email</label>
-        <input name="email" required />
+        <input name="email" required email />
       </div>
       <div className="form-group">
         <label>Message</label>
@@ -41,14 +44,15 @@ export class ContactForm extends React.Component {
         ref={recaptchaRef}
         theme="dark"
         size="invisible"
-        onChange={console.log}
+        badge="bottomleft"
+        onChange={this.onCaptchaChange}
       />,
 
-      <button className="btn">Submit</button>
+      <Button isLoading={this.state.isSubmitting}>Submit</Button>
     </form>;
   }
 
-  onChange = (e) => {
+  onInputChange = (e) => {
     e.persist();
     this.setState({
       ...this.state,
@@ -59,30 +63,44 @@ export class ContactForm extends React.Component {
     });
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
-
-    recaptchaRef.current.execute();
+  onCaptchaChange = () => {
+    this.setState({ ...this.state, isSubmitting: false });
 
     fetch(AZURE_URL, {
       method: 'post',
       body: JSON.stringify(this.state.data)
     })
-      .then(this.handleResponse)
-      .catch(console.log);
+      .then(res => {
+        if (res.ok && res.status === 200) {
+          this.setState({
+            ...this.state,
+            data: {},
+            error: undefined,
+            isSubmitting: false,
+            success: 'Success'
+          });
+        } else {
+          this.setState({
+            ...this.state,
+            isSubmitting: false,
+            error: true
+          });
+        }
+      });
   }
 
-  handleResponse = (res) => {
-    if (res.ok) {
-      this.setState({
-        ...this.state,
-        success: 'Success'
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        error: 'Error'
-      });
-    }
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    this.setState({ ...this.state, isSubmitting: true });
+    recaptchaRef.current.execute();
+  }
+
+  dismissCallout = () => {
+    this.setState({
+      ...this.state,
+      error: undefined,
+      success: undefined
+    })
   }
 }

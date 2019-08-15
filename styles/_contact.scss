@@ -49,7 +49,7 @@
     background: $secondary-color-light;
   }
 
-  .btn {
+  .ui-button {
     position: absolute;
     left: 50%;
 
@@ -61,10 +61,4 @@
     &:before, &:after { display:  none }
     padding: $spacing-lg;
   }
-}
-
-.contact-form-message {
-  
-  .is-error {}
-  .is-success {}
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import SocialIcons from '../components/SocialIcons';
+import { Button } from '../components/Button';
 
 function Index() {
   return <Layout>
@@ -11,10 +12,10 @@ function Index() {
           rimar
         <span className="accent-color">.</span>
         </h1>
-        <p>Front-end developer from Toronto.</p>
+        <p>Software developer from Toronto</p>
         <p>Currently working with <span className="accent-color">b3Intelligence</span></p>
         <div className="home-banner-footer">
-          <a className="btn" href='/contact'>Say Hello</a>
+          <Button href="/contact">Say hello</Button>
           <SocialIcons />
         </div>
       </div>

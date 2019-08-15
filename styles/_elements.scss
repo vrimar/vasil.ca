@@ -1,22 +1,8 @@
-.btn {
-  background: $primary-color;
-  color: white;
-  border: none;
-  padding: $spacing-sm $spacing-xl;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: $spacing-xl;
-  text-transform: uppercase;
-  text-decoration: none;
-
-  @include breakpoint(md) {
-    font-size: 14px;
-  }
-}
-
 input, textarea {
   width: 100%;
   margin-bottom: $spacing-lg;
+  font-family: 'Source Sans Pro';
+  font-size: 16px;
   background: transparent;
   border: none;
   border-bottom: solid 1px $secondary-color-light;
@@ -25,6 +11,15 @@ input, textarea {
 
   &:focus {
     border-color: white;
+  }
+
+  &:-webkit-autofill:hover, 
+  &:-webkit-autofill:focus, 
+  &:-webkit-autofill,
+  &:-webkit-autofill:active,
+  &:-internal-autofill-selected  {
+      background: transparent !important;
+      color: white;
   }
 }
 
@@ -38,10 +33,6 @@ label {
   color: $text-color;
   font-size: 14px;
   margin-bottom: $spacing-md;
-}
-
-form {
-  
 }
 
 .form-group {

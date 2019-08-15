@@ -6,8 +6,6 @@
 
 html {
   background: $secondary-color;
-  background: rgb(48,43,78);
-  background: linear-gradient(0deg, rgba(48,43,78,1) 0%, rgba(48,43,78,1) 43%, rgba(48,43,78,1) 100%);
 }
 
 body {
@@ -194,7 +192,7 @@ nav {
   justify-content: center;
   margin-top: $spacing-xl;
 
-  .btn  {
+  .ui-button {
     display: block;
     margin-right: $spacing-xl;
   }
@@ -203,7 +201,7 @@ nav {
     margin-top: $spacing-lg;
     flex-direction: column;
 
-    .btn { 
+    .ui-button { 
       margin: 0;
       margin-bottom: $spacing-md;
     }
@@ -240,3 +238,5 @@ nav {
 @import './elements';
 @import './projects';
 @import './contact';
+@import '../components/Callout/index';
+@import '../components/Button/index';

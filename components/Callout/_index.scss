@@ -1,0 +1,27 @@
+.ui-callout {
+  position: absolute;
+  width: 80%;
+  top: -25px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm;
+  margin-bottom: $spacing-md;
+  color: white;
+  border-radius: 5px;
+
+  &.is-positive {
+    background: #4caf50;
+  }
+
+  &.is-negative {
+    background: #d32f2f;
+  }
+}
+
+.ui-callout-close {
+  cursor: pointer;
+  display: inline-flex;
+  fill: white;
+}

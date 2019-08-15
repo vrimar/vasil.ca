@@ -1,0 +1,63 @@
+$button-padding-top: $spacing-xs * 2;
+
+.ui-button {
+  position: relative;
+  display: block;
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: $button-padding-top $spacing-xl;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: bold;
+  border-radius: $spacing-xl;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.3s ease-in;
+
+  &:hover {
+    background: lighten($primary-color, 5%);
+  }
+
+  @include breakpoint(md) {
+    font-size: 14px;
+  }
+  
+}
+
+.ui-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $primary-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  transition: 
+    opacity 0.3s ease-in-out,
+    background 0.3s ease-in-out;
+}
+
+.ui-spinner-icon {
+  height: 20px;
+  width: 20px;
+  border: 2px solid white;
+  border-top-color: $primary-color;
+  border-radius: 50%;
+  animation: loading .5s linear infinite;
+}
+
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

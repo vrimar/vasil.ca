@@ -1,9 +1,7 @@
-import '../styles/style.scss';
 import React from 'react';
 import Head from 'next/head';
 import Header from './Header';
 import ReactGA from 'react-ga';
-
 
 class Layout extends React.Component {
   componentDidMount() {

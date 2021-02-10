@@ -13,18 +13,17 @@
   "author": "Vasil Rimar",
   "license": "MIT",
   "devDependencies": {
-    "basic-ftp": "^3.8.4",
-    "cross-env": "^5.2.0",
-    "next": "^9.0.5",
-    "rimraf": "^3.0.0",
-    "@zeit/next-sass": "^1.0.1",
-    "node-sass": "^4.12.0"
+    "basic-ftp": "^4.6.3",
+    "cross-env": "^7.0.3",
+    "next": "^10.0.6",
+    "node-sass": "^5.0.0",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-ga": "^2.6.0",
-    "react-google-recaptcha": "^1.1.0"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-ga": "^3.3.0",
+    "react-google-recaptcha": "^2.1.0"
   }
 }

@@ -22,12 +22,6 @@ function Projects() {
           <div className="project-item-label">mithril-transition-group</div>
           <div className="project-item-content">A set of Mithril components for creating state/class based transitions</div>
         </a>
-
-        <a className="project-item" href="" target="_blank">
-          <div className="project-item-tag">Design</div>
-          <div className="project-item-label">UI kit</div>
-          <div className="project-item-content"></div>
-        </a>
       </div>
     </div>
   </Layout>

@@ -17,22 +17,10 @@ function Projects() {
           <div className="project-item-content">Mithril component for rendering inline children to document.body</div>
         </a>
 
-        <a className="project-item" href="https://pnhnetwork.ca" target="_blank">
-          <div className="project-item-tag">Freelance</div>
-          <div className="project-item-label">PNH Network</div>
-          <div className="project-item-content">Brochue site for the Canadian PNH Network</div>
-        </a>
-
         <a className="project-item" href="https://github.com/vrimar/mithril-transition-group" target="_blank">
           <div className="project-item-tag">Open Source</div>
           <div className="project-item-label">mithril-transition-group</div>
           <div className="project-item-content">A set of Mithril components for creating state/class based transitions</div>
-        </a>
-
-        <a className="project-item" href="https://willfix.ca" target="_blank">
-          <div className="project-item-tag">Freelance</div>
-          <div className="project-item-label">WillFix Inc.</div>
-          <div className="project-item-content">GTA waterproofing, foundation and underpinning services website</div>
         </a>
 
         <a className="project-item" href="" target="_blank">

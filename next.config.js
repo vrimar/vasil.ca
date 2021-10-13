@@ -1,3 +1,5 @@
+const isProdudction = process.env.NODE_ENV === 'production';
+
 module.exports = {
   exportPathMap: function () {
     return {
@@ -7,7 +9,6 @@ module.exports = {
       '/contact': { page: '/contact' },
     }
   },
-  distDir: 'build',
   trailingSlash: true,
-  outDir: 'public'
+  assetPrefix: isProdudction ? '/vasil.ca/' : undefined
 };

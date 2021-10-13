@@ -7,7 +7,5 @@ module.exports = {
       '/contact': { page: '/contact' },
     }
   },
-  distDir: 'build',
-  trailingSlash: true,
-  outDir: 'public'
+  trailingSlash: true
 };

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   exportPathMap: function () {
     return {
       '/': { page: '/' },
@@ -8,4 +8,4 @@ module.exports = {
     }
   },
   trailingSlash: true
-};
+}

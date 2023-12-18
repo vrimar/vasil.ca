@@ -15,8 +15,7 @@ function Contact() {
           <p>
             Interested in working with me or have a project in mind? Just drop
             me a message at <span className="accent-color">info@vasil.ca</span>{" "}
-            or use the contact form on the right. I'm currently AVAILABLE for
-            any design, full-stack or front-end gigs.
+            or use the contact form on the right.
           </p>
           <SocialIcons />
         </div>

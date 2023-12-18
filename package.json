@@ -13,16 +13,16 @@
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "gh-pages": "^3.2.3",
-    "next": "^11.1.2",
-    "rimraf": "^3.0.2",
-    "sass": "^1.42.1"
+    "gh-pages": "^6.1.0",
+    "next": "^14.0.4",
+    "rimraf": "^5.0.5",
+    "sass": "^1.69.5"
   },
   "dependencies": {
-    "classnames": "^2.3.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-ga": "^3.3.0",
-    "react-google-recaptcha": "^2.1.0"
+    "classnames": "^2.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-ga": "^3.3.1",
+    "react-google-recaptcha": "^3.1.0"
   }
 }

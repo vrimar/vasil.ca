@@ -4,7 +4,7 @@ import { withRouter } from "next/router";
 import { Children } from "react";
 
 const ActiveLink = withRouter(({ router, children, ...props }) => (
-  <Link {...props}>
+  <Link legacyBehavior {...props}>
     {React.cloneElement(Children.only(children), {
       className: router.pathname === props.href ? `is-active` : null
     })}

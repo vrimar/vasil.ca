@@ -11,8 +11,6 @@ export const Menu = ({ isOpen, toggle }: MenuProps) => {
     <nav className={isOpen ? "is-open" : ""}>
       <ActiveLink href="/">01. Home.</ActiveLink>
 
-      <ActiveLink href="/about">02. About.</ActiveLink>
-
       <ActiveLink href="/projects">03. Projects.</ActiveLink>
 
       <ActiveLink href="/contact">04. Contact.</ActiveLink>

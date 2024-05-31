@@ -19,11 +19,14 @@ export const ContactForm = () => {
     },
   });
 
+  const isSubmitDisabled =
+    !state.data.name || !state.data.email || !state.data.message;
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setState({ ...state, isSubmitting: true });
-    recaptchaRef.current.execute();
+    recaptchaRef.current?.execute();
   };
 
   const handleInputChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -126,7 +129,12 @@ export const ContactForm = () => {
         badge="bottomleft"
         onChange={handleCaptchaChange}
       />
-      <Button isLoading={state.isSubmitting}>Submit</Button>
+      <Button
+        isLoading={state.isSubmitting}
+        isDisabled={isSubmitDisabled}
+      >
+        Submit
+      </Button>
     </form>
   );
 };

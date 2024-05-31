@@ -21,6 +21,11 @@ $button-padding-top: $spacing-xs * 2;
     background: lighten($primary-color, 5%);
   }
 
+  &.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   @include breakpoint(md) {
     font-size: 14px;
   }

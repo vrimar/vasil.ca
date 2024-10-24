@@ -6,8 +6,7 @@
     "dev": "next",
     "build": "rimraf build && next build",
     "start": "next start",
-    "export": "rimraf out && next export",
-    "deploy": "next build && next export && gh-pages -d out -t true"
+    "deploy": "next build && gh-pages -d out -t true"
   },
   "author": "Vasil Rimar",
   "license": "MIT",

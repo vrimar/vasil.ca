@@ -15,10 +15,6 @@ export default function Index() {
             <span className="accent-color">.</span>
           </h1>
           <p>Software developer from Toronto</p>
-          <p>
-            Currently working with{" "}
-            <span className="accent-color">b3Intelligence</span>
-          </p>
           <div className="home-banner-footer">
             <Link href="/contact">
               <Button>Say hello</Button>

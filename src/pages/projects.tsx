@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout } from "../components/Layout";
+import { projects } from "@/constants/projects";
 
 export default function Projects() {
   return (
@@ -9,45 +10,19 @@ export default function Projects() {
           Projects<span className="accent-color">.</span>
         </h2>
         <div className="projects">
-          <a
-            className="project-item"
-            href="https://github.com/vrimar/construct-ui"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="project-item-tag">Open Source</div>
-            <div className="project-item-label">Construct-ui</div>
-            <div className="project-item-content">
-              A Mithril.js based UI library. Provides 40+ well tested components
-            </div>
-          </a>
-
-          <a
-            className="project-item"
-            href="https://github.com/vrimar/mithril-portal"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="project-item-tag">Open Source</div>
-            <div className="project-item-label">mithril-portal</div>
-            <div className="project-item-content">
-              Mithril component for rendering inline children to document.body
-            </div>
-          </a>
-
-          <a
-            className="project-item"
-            href="https://github.com/vrimar/mithril-transition-group"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="project-item-tag">Open Source</div>
-            <div className="project-item-label">mithril-transition-group</div>
-            <div className="project-item-content">
-              A set of Mithril components for creating state/class based
-              transitions
-            </div>
-          </a>
+          {projects.map((project) => (
+            <a
+              key={project.name}
+              className="project-item"
+              href={project.link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="project-item-tag">{project.tag}</div>
+              <div className="project-item-label">{project.name}</div>
+              <div className="project-item-content">{project.description}</div>
+            </a>
+          ))}
         </div>
       </div>
     </Layout>

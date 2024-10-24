@@ -2,31 +2,54 @@ import React, { createRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Callout } from "./Callout";
 import { Button } from "./Button";
-import { azureUrl } from "@/api";
+import emailjs from "@emailjs/browser";
 
-const recaptchaKey = "6LcEu68UAAAAAChABp_Lt2hhDFhp00pbBqc-3f7O";
+const captchaKey = "6LdGY-0pAAAAAALem9He7jmfWnAxNs3bgnkUEfL1";
 
 export const ContactForm = () => {
-  const recaptchaRef = createRef<ReCAPTCHA>();
+  const captchaRef = createRef<ReCAPTCHA>();
+  const formRef = createRef<HTMLFormElement>();
   const [state, setState] = useState({
     error: false,
-    success: "",
+    success: false,
     isSubmitting: false,
     data: {
-      name: "",
-      email: "",
-      message: "",
+      name: "Test",
+      email: "test@hotmail.com",
+      message: "test",
     },
   });
 
   const isSubmitDisabled =
     !state.data.name || !state.data.email || !state.data.message;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setState({ ...state, isSubmitting: true });
-    recaptchaRef.current?.execute();
+
+    if (!formRef.current) return;
+
+    try {
+      const captchaToken = await captchaRef.current?.executeAsync();
+
+      const templateParams = {
+        from_name: state.data.name,
+        from_email: state.data.email,
+        message: state.data.message,
+        "g-recaptcha-response": captchaToken,
+      };
+
+      emailjs
+        .send("service_nq426vz", "template_12ua6wh", templateParams, {
+          publicKey: "wpXlgSuDM1C9BDVjo",
+        })
+        .then(
+          () => setState({ ...state, isSubmitting: false, success: true }),
+          () => setState({ ...state, isSubmitting: false, error: true }),
+        );
+    } catch (e) {
+      setState({ ...state, isSubmitting: false, error: true });
+    }
   };
 
   const handleInputChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,44 +64,16 @@ export const ContactForm = () => {
     });
   };
 
-  const handleCaptchaChange = () => {
-    setState({ ...state, isSubmitting: false });
-
-    fetch(azureUrl, {
-      method: "post",
-      body: JSON.stringify(state.data),
-    }).then((res) => {
-      if (res.ok && res.status === 200) {
-        setState({
-          ...state,
-          data: {
-            name: "",
-            email: "",
-            message: "",
-          },
-          error: false,
-          isSubmitting: false,
-          success: "Success",
-        });
-      } else {
-        setState({
-          ...state,
-          isSubmitting: false,
-          error: true,
-        });
-      }
-    });
-  };
-
   const handleCalloutDismiss = () =>
     setState({
       ...state,
       error: false,
-      success: "",
+      success: false,
     });
 
   return (
     <form
+      ref={formRef}
       className="contact-form"
       onChange={handleInputChange}
       onSubmit={handleSubmit}
@@ -104,6 +99,7 @@ export const ContactForm = () => {
         <input
           name="name"
           required
+          value={state.data.name}
         />
       </div>
       <div className="form-group">
@@ -112,6 +108,7 @@ export const ContactForm = () => {
           name="email"
           type="email"
           required
+          value={state.data.email}
         />
       </div>
       <div className="form-group">
@@ -119,15 +116,15 @@ export const ContactForm = () => {
         <textarea
           name="message"
           rows={7}
-        ></textarea>
+          value={state.data.message}
+        />
       </div>
       <ReCAPTCHA
-        sitekey={recaptchaKey}
-        ref={recaptchaRef}
+        sitekey={captchaKey}
+        ref={captchaRef}
         theme="dark"
         size="invisible"
         badge="bottomleft"
-        onChange={handleCaptchaChange}
       />
       <Button
         isLoading={state.isSubmitting}

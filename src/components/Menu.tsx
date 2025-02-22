@@ -11,9 +11,9 @@ export const Menu = ({ isOpen, toggle }: MenuProps) => {
     <nav className={isOpen ? "is-open" : ""}>
       <ActiveLink href="/">01. Home.</ActiveLink>
 
-      <ActiveLink href="/projects">03. Projects.</ActiveLink>
+      <ActiveLink href="/projects">02. Projects.</ActiveLink>
 
-      <ActiveLink href="/contact">04. Contact.</ActiveLink>
+      <ActiveLink href="/contact">03. Contact.</ActiveLink>
 
       <div
         className="header-nav-close"

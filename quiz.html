@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seven Deadly Sins Quiz - What's Your Sin?</title>
+  <meta name="description" content="Are you going to hell? Discover which sin will send you there.">
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #000;
+      color: #ddd;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #111;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    h1 {
+      color: #c00;
+      text-align: center;
+      font-size: 2.5em;
+      margin: 20px 0;
+      text-shadow: 2px 2px 4px #000;
+    }
+    h2 {
+      color: #c00;
+      border-bottom: 2px solid #600;
+      padding-bottom: 10px;
+      margin-top: 30px;
+    }
+    .intro {
+      text-align: center;
+      margin: 20px 0;
+      padding: 20px;
+      background: #1a1a1a;
+      border-radius: 5px;
+    }
+    .form-group {
+      margin: 20px 0;
+      padding: 15px;
+      background: #1a1a1a;
+      border-radius: 5px;
+    }
+    .form-group b {
+      color: #ff6666;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .demographics {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    .demographics label {
+      margin-right: 10px;
+      color: #ff6666;
+    }
+    input[type="text"], select {
+      padding: 5px;
+      background: #222;
+      color: #ddd;
+      border: 1px solid #444;
+      border-radius: 3px;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+      margin-top: 12px;
+      width: 22px;
+      height: 22px;
+    }
+    label {
+      cursor: pointer;
+    }
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+    }
+    button {
+      background: #c00;
+      color: #fff;
+      border: none;
+      padding: 15px 40px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      display: block;
+      margin: 30px auto;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #900;
+    }
+    .results {
+      display: none;
+    }
+    .results.active {
+      display: block;
+    }
+    .result-table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+    }
+    .result-table td {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+    .result-table td:first-child {
+      width: 120px;
+      font-weight: bold;
+      color: #ff6666;
+    }
+    .result-table td:nth-child(2) {
+      width: 120px;
+      text-align: center;
+    }
+    .bar-container {
+      background: #222;
+      height: 25px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .bar {
+      height: 100%;
+      transition: width 1s ease;
+    }
+    .level-very-low { background: #110099; }
+    .level-low { background: #330077; }
+    .level-medium { background: #660033; }
+    .level-high { background: #770022; }
+    .level-very-high { background: #990022; }
+    .result-summary {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .quiz-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .quiz-section {
+        grid-template-columns: 1fr;
+      }
+      .demographics {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="quizForm">
+      <h1>The Seven Deadly Sins Quiz</h1>
+      
+      <div class="intro">
+        <p>Pride. Envy. Wrath, Gluttony and Lust. Sloth and Greed. <b>The seven deadly sins.</b> Countless 
+        souls have been eternally damned for succumbing to them. If you are bound for hell, discover what 
+        sin will send you there. Answer the questions below honestly and learn your sin. You may be surprised. 
+        You might just learn something new about yourself -- hopefully before it's too late...</p>
+      </div>
+
+      <div class="demographics">
+        <div>
+          <label><b>Your age:</b></label>
+          <input type="number" id="age" min="10" max="99">
+        </div>
+        <div>
+          <label><b>Your gender:</b></label>
+          <select id="gender">
+            <option value="m">Male</option>
+            <option value="f">Female</option>
+          </select>
+        </div>
+      </div>
+
+      <h2>Complete These Questions and Learn Your Deadly Sin:</h2>
+
+      <div class="quiz-section">
+        <div class="form-group">
+          <b>1. Check all that apply to you and your vehicle:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve1"> I own a gas-powered vehicle</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve2"> My vehicle is a sports car, luxury car, or SUV</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve3"> My vehicle was bought second-hand</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve4"> I really want a bigger/better/faster vehicle</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve5"> A friend of mine has a vehicle I'm jealous of</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve6"> It's safe to say that I ride in style</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve7"> My vehicle is very fuel efficient</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ve8"> I prefer to walk whenever possible</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>2. Check all that apply to your charitable nature:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="ch1"> I give more than 15% of my earnings to charity</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ch2"> I give between 5% and 15% of my earnings to charity</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ch3"> I give to charity, but less than 5% of my earnings</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ch4"> I devote several weeks or more per year doing volunteer work</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ch5"> I devote several days per year doing volunteer work</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ch6"> I'm always willing to lend a hand</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>3. Check any scenario in which you might lose your temper:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="te1"> A pushy salesman won't take no for an answer</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="te2"> A dinner serving at a restaurant arrives cold</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="te3"> A know-it-all coworker or classmate makes you look foolish</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="te4"> Your girl/boyfriend won't stop nagging you</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>4. Check all that apply to you and your computer:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="co1"> It's the latest and greatest</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="co2"> It's cheap or old, but gets the job done</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="co3"> When it malfunctions, I want to smash it</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="co4"> If you looked, you might find dirty pictures on it</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="co5"> I spend hours on it playing games or web surfing</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="co6"> I own several personal-use computers</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>5. Check any of the following that you would <u>refrain</u> from doing, based on your morality:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="im1"> Spend a lot of money on a house, car, TV, etc.</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="im2"> Date several people at once</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="im3"> Talk publicly about your spiritual piety</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="im4"> Use drugs/alcohol at parties</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="im5"> "Settle a score" with someone who wronged you</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>6. Check all that apply to you and your work/school:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="wo1"> I work so hard, I barely have time to sleep</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="wo2"> I avoid work whenever possible</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="wo3"> I'll work hard but draw the line to create personal time</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="wo4"> I'm working hard now so that I'll earn a lot of money</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="wo5"> "Work hard, party hard" is my motto</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="wo6"> If I got a raise, I'd give more to charity</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>7. Check all that apply to you and exercise:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="ex1"> I usually don't stick to an exercise routine</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ex2"> I exercise to improve my health</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ex3"> I exercise to improve my looks</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ex4"> I exercise to be stronger in fights</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ex5"> Gyms are good places to check out attractive people</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>8. Check all that apply to your love life:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="lo1"> I hate seeing happy couples fawning over each other</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="lo2"> I am in a happy, secure relationship or marriage</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="lo3"> I am in a conflicted relationship or marriage</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="lo4"> I'd like to date but lack the motivation to pursue it</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="lo5"> People are jealous of me for my attractive significant other</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="lo6"> My current relationship is okay, but I'd like something better</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>9. Check all of the following that you have <u>no</u> moral objections to:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob1"> Wearing tight or skimpy clothing</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob2"> Wearing flashy jewelry</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob3"> Buying expensive, trendy brands</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob4"> Relationships turning sexual in a short amount of time</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob5"> Sleeping past noon on weekends</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob6"> Throwing a punch at someone who is angering you</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob7"> Gambling, playing the lottery</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ob8"> Keeping extra change when a cashier gives back too much</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>10. Check all that apply to you and eating:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="ea1"> I eat out most days</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ea2"> I eat out 1 to 3 days a week</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ea3"> I eat a lot of packaged, processed, or fast foods</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ea4"> I support brands/restaurants that are humane and environmentally-friendly</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ea5"> I grow/raise some of my own food</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>11. Check all of the following that would annoy you:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="an1"> A low-income housing project is built nearby</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an2"> A coworker gets a larger year-end bonus than you</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an3"> A parent or significant other asks you to do some chores that he/she usually does</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an4"> Knowing you have to apologize for something you did</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an5"> When people won't do what you want them to do</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an6"> Being on a no-frills camping trip</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an7"> My significant other glancing at other guys/girls</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="an8"> Someone saying "a stronger person walks away from a fight"</label></div>
+        </div>
+
+        <div class="form-group">
+          <b>12. Which of these have you done in the last year?:</b>
+          <div class="checkbox-option"><label><input type="checkbox" name="ye1"> Cheated on someone</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ye2"> Lied to make yourself look good</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ye3"> Treated someone badly, because you were jealous of him/her</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ye4"> Stolen something</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ye5"> Slept with more than one person (not at the same time)</label></div>
+          <div class="checkbox-option"><label><input type="checkbox" name="ye6"> Broken something, out of anger</label></div>
+        </div>
+      </div>
+
+      <button onclick="calculateResults()">Click Here to See Your Results</button>
+    </div>
+
+    <div id="results" class="results">
+      <h1>Your Sins are Revealed, Your Fate is Sealed</h1>
+      
+      <div class="result-summary" id="summary"></div>
+
+      <table class="result-table">
+        <tr>
+          <td>Greed:</td>
+          <td id="greed-level"></td>
+          <td><div class="bar-container"><div class="bar" id="greed-bar"></div></div></td>
+        </tr>
+        <tr>
+          <td>Gluttony:</td>
+          <td id="gluttony-level"></td>
+          <td><div class="bar-container"><div class="bar" id="gluttony-bar"></div></div></td>
+        </tr>
+        <tr>
+          <td>Wrath:</td>
+          <td id="wrath-level"></td>
+          <td><div class="bar-container"><div class="bar" id="wrath-bar"></div></div></td>
+        </tr>
+        <tr>
+          <td>Sloth:</td>
+          <td id="sloth-level"></td>
+          <td><div class="bar-container"><div class="bar" id="sloth-bar"></div></div></td>
+        </tr>
+        <tr>
+          <td>Envy:</td>
+          <td id="envy-level"></td>
+          <td><div class="bar-container"><div class="bar" id="envy-bar"></div></div></td>
+        </tr>
+        <tr>
+          <td>Lust:</td>
+          <td id="lust-level"></td>
+          <td><div class="bar-container"><div class="bar" id="lust-bar"></div></div></td>
+        </tr>
+        <tr>
+          <td>Pride:</td>
+          <td id="pride-level"></td>
+          <td><div class="bar-container"><div class="bar" id="pride-bar"></div></div></td>
+        </tr>
+      </table>
+
+      <button onclick="resetQuiz()">Take the Quiz Again</button>
+    </div>
+  </div>
+
+  <script>
+    function isChecked(name) {
+      const el = document.querySelector(`input[name="${name}"]`);
+      return el ? el.checked : false;
+    }
+
+    function calculateResults() {
+      let greed = 0, gluttony = 0, wrath = 0, sloth = 0, envy = 0, lust = 0, pride = 0;
+
+      // Vehicle questions
+      if (isChecked('ve1')) gluttony++;
+      if (isChecked('ve2')) { greed++; gluttony += 2; }
+      if (isChecked('ve3')) { pride--; gluttony--; }
+      if (isChecked('ve4')) { envy++; greed += 2; }
+      if (isChecked('ve5')) envy++;
+      if (isChecked('ve6')) { pride += 2; gluttony++; }
+      if (isChecked('ve7')) gluttony--;
+      if (isChecked('ve8')) { gluttony++; sloth--; } else sloth++;
+
+      // Charity questions
+      if (isChecked('ch1')) { gluttony -= 3; greed -= 2; }
+      else if (isChecked('ch2')) { gluttony -= 2; greed--; }
+      else if (isChecked('ch3')) gluttony--;
+      if (isChecked('ch4')) { gluttony--; greed--; sloth -= 2; }
+      else if (isChecked('ch5')) { gluttony--; sloth--; }
+      if (isChecked('ch6')) gluttony--;
+
+      // Temper questions
+      if (isChecked('te1')) wrath++;
+      if (isChecked('te2')) { wrath++; gluttony++; }
+      if (isChecked('te3')) { wrath++; pride++; }
+      if (isChecked('te4')) wrath++;
+
+      // Computer questions
+      if (isChecked('co1')) { gluttony++; pride++; }
+      if (isChecked('co2')) gluttony--;
+      if (isChecked('co3')) wrath++;
+      if (isChecked('co4')) lust += 2;
+      if (isChecked('co5')) sloth += 2;
+      if (isChecked('co6')) gluttony++;
+
+      // Morality questions (refrain from)
+      if (!isChecked('im1')) { greed++; gluttony++; }
+      if (!isChecked('im2')) { lust += 2; gluttony++; }
+      if (!isChecked('im3')) pride += 2;
+      if (!isChecked('im4')) { gluttony++; sloth++; }
+      if (!isChecked('im5')) { pride++; wrath += 2; }
+
+      // Work questions
+      if (isChecked('wo1')) sloth -= 2;
+      if (isChecked('wo2')) sloth += 2;
+      if (isChecked('wo3')) sloth--;
+      if (isChecked('wo4')) { sloth--; greed += 2; }
+      if (isChecked('wo5')) { sloth--; gluttony++; }
+      if (isChecked('wo6')) greed--;
+
+      // Exercise questions
+      if (isChecked('ex1')) sloth += 2;
+      if (isChecked('ex2') || isChecked('ex3') || isChecked('ex4')) sloth -= 2;
+      if (isChecked('ex3')) { pride++; envy++; }
+      if (isChecked('ex4')) wrath += 2;
+      if (isChecked('ex5')) lust++;
+
+      // Love life questions
+      if (isChecked('lo1')) envy += 2;
+      if (isChecked('lo3')) wrath++;
+      if (isChecked('lo4')) sloth++;
+      if (isChecked('lo5')) pride++;
+      if (isChecked('lo6')) { envy += 2; greed++; }
+
+      // Moral objections questions
+      if (isChecked('ob1')) lust++;
+      if (isChecked('ob2')) gluttony++;
+      if (isChecked('ob3')) gluttony++;
+      if (isChecked('ob4')) lust++;
+      if (isChecked('ob5')) sloth++;
+      if (isChecked('ob6')) wrath++;
+      if (isChecked('ob7')) greed++;
+      if (isChecked('ob8')) greed++;
+
+      // Eating questions
+      if (isChecked('ea1')) gluttony += 2;
+      else if (isChecked('ea2')) gluttony++;
+      if (isChecked('ea3')) { gluttony++; sloth++; }
+      if (isChecked('ea4')) gluttony--;
+      if (isChecked('ea5')) { gluttony--; sloth--; }
+
+      // Annoyance questions
+      if (isChecked('an1')) { gluttony++; greed++; }
+      if (isChecked('an2')) envy++;
+      if (isChecked('an3')) sloth++;
+      if (isChecked('an4')) pride++;
+      if (isChecked('an5')) { pride++; greed++; }
+      if (isChecked('an6')) { gluttony++; sloth++; }
+      if (isChecked('an7')) envy++;
+      if (isChecked('an8')) wrath++;
+
+      // Last year questions
+      if (isChecked('ye1')) { lust += 2; greed++; }
+      if (isChecked('ye2')) pride++;
+      if (isChecked('ye3')) { pride++; envy++; }
+      if (isChecked('ye4')) { greed++; envy++; }
+      if (isChecked('ye5')) lust++;
+      if (isChecked('ye6')) wrath++;
+
+      // Bonusing
+      if (greed > 1) greed++;
+      if (gluttony > 0) gluttony++;
+      if (wrath > 1) wrath++;
+      if (sloth > 0) sloth++;
+      if (envy > 2) envy++;
+      if (lust > 2) lust++;
+      if (pride > 1) pride++;
+
+      // Normalize to percentages
+      greed = Math.round(100 * (greed + 2) / 15);
+      gluttony = Math.round(100 * (gluttony + 6) / 24);
+      wrath = Math.round(100 * wrath / 13);
+      sloth = Math.round(100 * (sloth + 6) / 19);
+      envy = Math.round(100 * envy / 12);
+      lust = Math.round(100 * lust / 10);
+      pride = Math.round(100 * (pride + 1) / 14);
+
+      // Clamp values
+      const clamp = v => Math.max(1, Math.min(100, v));
+      greed = clamp(greed);
+      gluttony = clamp(gluttony);
+      wrath = clamp(wrath);
+      sloth = clamp(sloth);
+      envy = clamp(envy);
+      lust = clamp(lust);
+      pride = clamp(pride);
+
+      // Find top sin
+      const sins = {Greed: greed, Gluttony: gluttony, Wrath: wrath, Sloth: sloth, Envy: envy, Lust: lust, Pride: pride};
+      let topSin = 'Greed';
+      let topScore = greed;
+      for (const [sin, score] of Object.entries(sins)) {
+        if (score > topScore) {
+          topSin = sin;
+          topScore = score;
+        }
+      }
+
+      // Display results
+      displayResults(sins, topSin, topScore);
+    }
+
+    function getLevel(score) {
+      if (score < 15) return {text: 'Very Low', class: 'level-very-low'};
+      if (score < 32) return {text: 'Low', class: 'level-low'};
+      if (score < 55) return {text: 'Medium', class: 'level-medium'};
+      if (score < 75) return {text: 'High', class: 'level-high'};
+      return {text: 'Very High', class: 'level-very-high'};
+    }
+
+    function displayResults(sins, topSin, topScore) {
+      // Update summary
+      const summary = topScore > 50 
+        ? `You have committed many sins, but <b>${topSin}</b> is the mortal sin that has done you in. Just below, discover your full sinful breakdown and learn what it is about you that condemns you to hell.`
+        : `Happily for you, your sin profile leaves room for forgiveness. Just below, discover your full sinful breakdown and see the areas that you must improve, to save yourself from an eternity in hell.`;
+      document.getElementById('summary').innerHTML = `<p>Your sin has been measured. ${summary}</p>`;
+
+      // Update each sin
+      for (const [sin, score] of Object.entries(sins)) {
+        const level = getLevel(score);
+        const sinLower = sin.toLowerCase();
+        document.getElementById(`${sinLower}-level`).textContent = level.text;
+        const bar = document.getElementById(`${sinLower}-bar`);
+        bar.className = `bar ${level.class}`;
+        setTimeout(() => {
+          bar.style.width = `${score * 2}px`;
+        }, 100);
+      }
+
+      // Show results, hide form
+      document.getElementById('quizForm').style.display = 'none';
+      document.getElementById('results').classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function resetQuiz() {
+      // Reset all checkboxes
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+      
+      // Reset bars
+      document.querySelectorAll('.bar').forEach(bar => bar.style.width = '0');
+      
+      // Show form, hide results
+      document.getElementById('quizForm').style.display = 'block';
+      document.getElementById('results').classList.remove('active');
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>

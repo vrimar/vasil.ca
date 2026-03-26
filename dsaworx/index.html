@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DsaWorx Renovations</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0f0b08;
+      --bg-dark: #1a1410;
+      --bg-card: #211a12;
+      --bg-card-hover: #2a2118;
+      --brown-rich: #3d2e1e;
+      --brown-warm: #5c4530;
+      --gold-dark: #8b6914;
+      --gold: #c9972d;
+      --gold-light: #e2b94a;
+      --gold-pale: #f0d68a;
+      --cream: #f5ead0;
+      --text-primary: #ede4d4;
+      --text-secondary: #a89a86;
+      --text-muted: #7a6e5e;
+      --border: rgba(201, 151, 45, 0.12);
+      --border-hover: rgba(201, 151, 45, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--brown-warm) var(--bg-deep);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ─── Geometric Overlay ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--gold) 0%, var(--gold) 100%),
+        linear-gradient(var(--gold) 0%, var(--gold) 100%);
+      background-size: 1px 8px, 8px 1px;
+      background-position: center center, center center;
+      background-repeat: repeat;
+      background-origin: border-box;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(201, 151, 45, 0.04) 19px, rgba(201, 151, 45, 0.04) 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(201, 151, 45, 0.04) 19px, rgba(201, 151, 45, 0.04) 20px);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(15, 11, 8, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      height: 48px;
+      width: auto;
+    }
+
+    .logo-wordmark {
+      height: 30px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 2rem;
+      background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 7, 4, 0.94);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(139, 105, 20, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(61, 46, 30, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 80% 20%, rgba(61, 46, 30, 0.1) 0%, transparent 60%);
+    }
+
+    /* Decorative corner lines */
+    .hero-frame {
+      position: absolute;
+      inset: 3rem;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-frame::before,
+    .hero-frame::after {
+      content: '';
+      position: absolute;
+      border-color: rgba(201, 151, 45, 0.15);
+      border-style: solid;
+      width: 80px;
+      height: 80px;
+    }
+
+    .hero-frame::before {
+      top: 0;
+      left: 0;
+      border-width: 1px 0 0 1px;
+    }
+
+    .hero-frame::after {
+      bottom: 0;
+      right: 0;
+      border-width: 0 1px 1px 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.8s forwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 2.5rem;
+      border: 1px solid var(--gold-dark);
+      color: var(--gold-light);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.4s;
+      opacity: 0;
+      animation: fadeUp 1s 1s forwards;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .hero-cta:hover {
+      background: var(--gold-dark);
+      color: var(--bg-deep);
+      border-color: var(--gold);
+    }
+
+    .hero-cta svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.3s;
+    }
+
+    .hero-cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ─── Scroll Indicator ─── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold-dark), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+
+      50% {
+        opacity: 0.3;
+        transform: scaleY(0.6);
+      }
+    }
+
+    /* ─── Section Base ─── */
+    section {
+      padding: 7rem 3rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .section-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold-dark);
+      margin: 1.5rem auto 0;
+    }
+
+    /* ─── Services Grid ─── */
+    #services {
+      background: var(--bg-dark);
+      position: relative;
+    }
+
+    #services::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--gold-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+      transition: all 0.4s;
+    }
+
+    .service-card:hover .service-icon {
+      background: var(--gold-dark);
+      color: var(--cream);
+    }
+
+    .service-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ─── Process Section ─── */
+    #process {
+      background: var(--bg-deep);
+      position: relative;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold-dark), transparent);
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--gold-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      background: var(--bg-deep);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ─── Stats Bar ─── */
+    .stats-bar {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 3rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ─── CTA Section ─── */
+    #contact {
+      background: var(--bg-dark);
+      text-align: center;
+      padding: 8rem 3rem;
+      position: relative;
+    }
+
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(139, 105, 20, 0.06) 0%, transparent 70%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-content .section-title {
+      margin-bottom: 1rem;
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 0.9rem 2.5rem;
+      background: var(--gold-dark);
+      color: var(--bg-deep);
+      border: 1px solid var(--gold);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold);
+    }
+
+    .btn-secondary {
+      padding: 0.9rem 2.5rem;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold-light);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-right a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .footer-right a:hover {
+      color: var(--gold);
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Gallery ─── */
+    #gallery {
+      background: var(--bg-dark);
+      position: relative;
+    }
+
+    #gallery::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 280px;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: var(--bg-card);
+    }
+
+    .gallery-item.tall {
+      grid-row: span 2;
+    }
+
+    .gallery-item.wide {
+      grid-column: span 2;
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .gallery-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s;
+      filter: brightness(0.75) saturate(0.85);
+    }
+
+    .gallery-item:hover .gallery-placeholder img {
+      transform: scale(1.05);
+      filter: brightness(0.45) saturate(0.7);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 11, 8, 0.9) 0%, rgba(15, 11, 8, 0.1) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-overlay p {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    /* ─── Lightbox ─── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10, 7, 4, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .lightbox-close:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold);
+    }
+
+    .lightbox-content {
+      max-width: 800px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .lightbox-image {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--brown-rich) 100%);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .lightbox-image svg {
+      width: 48px;
+      height: 48px;
+      color: var(--gold-dark);
+      opacity: 0.4;
+    }
+
+    .lightbox-image span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .lightbox-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .lightbox-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .lightbox-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .lightbox-nav button {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .lightbox-nav button:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .logo-icon {
+        height: 32px;
+      }
+
+      .logo-wordmark {
+        height: 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 5rem 1.5rem;
+      }
+
+      .hero-frame {
+        inset: 1.5rem;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-steps::before {
+        display: none;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 220px;
+      }
+
+      .gallery-item.tall {
+        grid-row: span 1;
+      }
+
+      .gallery-item.wide {
+        grid-column: span 1;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="logo">
+      <img src="./dsa_worx_icon.svg" alt="DsaWorx icon" class="logo-icon">
+      <img src="./dsa_worx_wordmark.svg" alt="DsaWorx" class="logo-wordmark">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">Residential &amp; Commercial Excellence</p>
+      <h1 class="hero-title">Crafting Spaces<br>That <em>Inspire</em></h1>
+      <div class="hero-line"></div>
+      <p class="hero-sub">Full-service renovation — from demolition to the final finish. Where vision meets
+        craftsmanship.</p>
+      <a href="#services" class="hero-cta">
+        Explore Our Work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="section-header reveal">
+      <p class="section-tag">What We Do</p>
+      <h2 class="section-title">Our Services</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+        </div>
+        <h3>Full Interior Remodels</h3>
+        <p>Complete residential transformations — kitchens, bathrooms, basements, and every space in between, designed
+          to elevate your daily life.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="18" rx="2" />
+            <path d="M8 21V7m8 0v14" />
+            <path d="M2 7h20" />
+          </svg>
+        </div>
+        <h3>Commercial Fit-Outs</h3>
+        <p>Office build-outs, retail renovations, and tenant improvements tailored to your brand identity and
+          operational needs.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="1" y="6" width="22" height="12" rx="1" />
+            <path d="M1 10h22" />
+            <path d="M6 18v2m12-2v2" />
+          </svg>
+        </div>
+        <h3>Structural &amp; Framing</h3>
+        <p>Drywall, framing, and structural work executed with precision — the invisible backbone of every great
+          renovation.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 22h20" />
+            <path d="M6 22V4a2 2 0 012-2h8a2 2 0 012 2v18" />
+            <path d="M10 8h4m-4 4h4" />
+          </svg>
+        </div>
+        <h3>Flooring &amp; Finishing</h3>
+        <p>Premium flooring installation, painting, trim work, and finish carpentry that bring warmth and character to
+          every surface.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <h3>Project Management</h3>
+        <p>End-to-end coordination — budgets, timelines, permits, subcontractors — so you can focus on your vision, not
+          the logistics.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M12 1v4m0 14v4M4.22 4.22l2.83 2.83m9.9 9.9l2.83 2.83M1 12h4m14 0h4M4.22 19.78l2.83-2.83m9.9-9.9l2.83-2.83" />
+          </svg>
+        </div>
+        <h3>Demolition &amp; Prep</h3>
+        <p>Safe, efficient demolition and site preparation — clearing the way for your renovation with minimal
+          disruption.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process">
+    <div class="section-header reveal">
+      <p class="section-tag">How We Work</p>
+      <h2 class="section-title">Our Process</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <h4 class="step-title">Consultation</h4>
+        <p class="step-desc">We listen to your vision, assess the space, and outline possibilities.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <h4 class="step-title">Design &amp; Plan</h4>
+        <p class="step-desc">Detailed scope, timeline, and transparent pricing before any work begins.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <h4 class="step-title">Build</h4>
+        <p class="step-desc">Expert craftsmanship with daily updates and rigorous quality control.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <h4 class="step-title">Deliver</h4>
+        <p class="step-desc">Final walkthrough, punch list, and your space — transformed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stats-grid reveal">
+      <div>
+        <div class="stat-num">250+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div>
+        <div class="stat-num">15</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+      <div>
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Active Partners</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <div class="section-header reveal">
+      <p class="section-tag">Our Portfolio</p>
+      <h2 class="section-title">Recent Projects</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item tall reveal" onclick="openLightbox(0)">
+        <div class="gallery-placeholder">
+          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=900&fit=crop"
+            alt="Modern Kitchen Remodel" loading="lazy">
+        </div>
+        <div class="gallery-overlay">
+          <h4>Modern Kitchen Remodel</h4>
+          <p>Residential · Kitchen</p>
+        </div>
+      </div>
+
+      <div class="gallery-item wide reveal" onclick="openLightbox(1)">
+        <div class="gallery-placeholder">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=500&fit=crop"
+            alt="Corporate Office Fit-Out" loading="lazy">
+        </div>
+        <div class="gallery-overlay">
+          <h4>Corporate Office Fit-Out</h4>
+          <p>Commercial · Office</p>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal" onclick="openLightbox(2)">
+        <div class="gallery-placeholder">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&h=500&fit=crop"
+            alt="Spa Bathroom Suite" loading="lazy">
+        </div>
+        <div class="gallery-overlay">
+          <h4>Spa Bathroom Suite</h4>
+          <p>Residential · Bathroom</p>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal" onclick="openLightbox(3)">
+        <div class="gallery-placeholder">
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=500&fit=crop"
+            alt="Basement Entertainment" loading="lazy">
+        </div>
+        <div class="gallery-overlay">
+          <h4>Basement Entertainment</h4>
+          <p>Residential · Basement</p>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal" onclick="openLightbox(4)">
+        <div class="gallery-placeholder">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=500&fit=crop"
+            alt="Retail Storefront" loading="lazy">
+        </div>
+        <div class="gallery-overlay">
+          <h4>Retail Storefront</h4>
+          <p>Commercial · Retail</p>
+        </div>
+      </div>
+
+      <div class="gallery-item tall wide reveal" onclick="openLightbox(5)">
+        <div class="gallery-placeholder">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=900&fit=crop"
+            alt="Full Home Renovation" loading="lazy">
+        </div>
+        <div class="gallery-overlay">
+          <h4>Full Home Renovation</h4>
+          <p>Residential · Whole Home</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <div class="lightbox-image" id="lb-image">
+        <img id="lb-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <h3 class="lightbox-title" id="lb-title"></h3>
+      <p class="lightbox-desc" id="lb-desc"></p>
+      <div class="lightbox-nav">
+        <button onclick="navLightbox(-1)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button onclick="navLightbox(1)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact CTA -->
+  <section id="contact">
+    <div class="cta-content reveal">
+      <p class="section-tag">Start Your Project</p>
+      <h2 class="section-title">Ready to Transform<br>Your Space?</h2>
+      <p class="cta-sub">Tell us about your project and receive a complimentary consultation and estimate.</p>
+      <div class="cta-buttons">
+        <a href="mailto:hello@dsaworx.com" class="btn-primary">Get a Free Quote</a>
+        <a href="tel:+15551234567" class="btn-secondary">Call Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">&copy; 2026 DsaWorx Renovations. All rights reserved.</div>
+    <div class="footer-right">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Houzz</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Gallery lightbox
+    const projects = [
+      { title: 'Modern Kitchen Remodel', desc: 'Complete gut renovation with custom cabinetry, quartz countertops, and premium appliances. Every detail carefully selected for a seamless blend of function and elegance.', cat: 'Residential · Kitchen', img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&h=750&fit=crop' },
+      { title: 'Corporate Office Fit-Out', desc: 'A 5,000 sq ft open-plan office build-out with glass-walled conference rooms, breakout areas, and integrated AV systems throughout.', cat: 'Commercial · Office', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=750&fit=crop' },
+      { title: 'Spa Bathroom Suite', desc: 'Master bath transformed with heated porcelain floors, freestanding soaking tub, walk-in rain shower, and custom vanity with backlit mirror.', cat: 'Residential · Bathroom', img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&h=750&fit=crop' },
+      { title: 'Basement Entertainment', desc: 'Unfinished basement converted into a full entertainment level — home theater with acoustic treatment, wet bar, and custom built-in storage.', cat: 'Residential · Basement', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=750&fit=crop' },
+      { title: 'Retail Storefront', desc: 'Full interior renovation for a boutique retail space including custom display fixtures, architectural lighting, and branded environmental design.', cat: 'Commercial · Retail', img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=750&fit=crop' },
+      { title: 'Full Home Renovation', desc: 'Whole-home transformation — structural modifications, new mechanical systems, and premium finishes across 3,200 sq ft of living space.', cat: 'Residential · Whole Home', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=750&fit=crop' },
+      { title: 'Open Concept Living', desc: 'Load-bearing wall removal with engineered steel beam installation, creating a seamless 40-foot sightline from living room through dining to kitchen.', cat: 'Residential · Living Space', img: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&h=750&fit=crop' }
+    ];
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e.target === document.getElementById('lightbox') || e.currentTarget.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function navLightbox(dir) {
+      currentIndex = (currentIndex + dir + projects.length) % projects.length;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      document.getElementById('lb-title').textContent = projects[currentIndex].title;
+      document.getElementById('lb-desc').textContent = projects[currentIndex].desc;
+      document.getElementById('lb-img').src = projects[currentIndex].img;
+      document.getElementById('lb-img').alt = projects[currentIndex].title;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') { lb.classList.remove('active'); document.body.style.overflow = ''; }
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
+    });
+  </script>
+
+</body>
+
+</html>
